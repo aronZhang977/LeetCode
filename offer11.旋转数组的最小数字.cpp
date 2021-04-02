@@ -18,6 +18,14 @@
 class Solution {
 public:
     int minArray(vector<int>& numbers) {
+        int left = 0, right = numbers.size() - 1;
+
+        while (left < right)
+        {
+            int mid = right - (right + left) / 2;
+            
+        }
+        
 
     }
 };
