@@ -18,15 +18,27 @@
 class Solution {
 public:
     int minArray(vector<int>& numbers) {
-        int left = 0, right = numbers.size() - 1;
-
-        while (left < right)
-        {
-            int mid = right - (right + left) / 2;
-            
-        }
         
-
+        int left = 0, right = numbers.size() - 1;
+        while (left <= right)
+        {
+           // int mid = (left + right) / 2;
+            int mid = left - (left - right) / 2;
+            // 小于在前边部分找  大于在后边部分找 等于则右边界前移
+            if (numbers[mid] > numbers[right])
+            {
+                left = mid + 1;
+            }
+            else if (numbers[mid] < numbers[right])
+            {
+                right = mid;                
+            }
+            else
+            {
+                --right;
+            }
+        }
+        return numbers[left];
     }
 };
 
