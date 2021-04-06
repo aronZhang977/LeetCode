@@ -28,9 +28,47 @@
 注意：本题与主站 50 题相同：https://leetcode-cn.com/problems/powx-n/
 
 */
+
 class Solution {
 public:
     double myPow(double x, int n) {
-
+        if (0 == n)
+            return 1;
+        if (1 == n)
+            return x;
+        double res = 0;
+        if (n < 0)
+            res = myPow(x, n / 2 * -1);
+        else
+            res = myPow(x,n >> 1);
+        res *= res;
+        // 奇数幂要单乘一个x
+        if((n & 0x1) == 1)
+            res *= x;
+        return n < 0 ? 1/res:res;
     }
+};
+
+// 递归效率太低  试试迭代法。
+
+class Solution {
+public:
+
+   double myPow(double x, int n) 
+   {
+       // 迭代法  
+        long long temp_n = n;
+        if(temp_n < 0)
+            temp_n *= -1;
+        double res = 1, temp_x = x;
+        while (temp_n > 0)
+        {
+            // 这个地方多乘一个temp_x 和 x 值是不一样的
+            if((temp_n & 0x1) == 1)
+                res *= temp_x;
+            temp_x *= temp_x;
+            temp_n = temp_n >> 1;
+        }
+        return n < 0 ? 1 / res : res;
+   }
 };
