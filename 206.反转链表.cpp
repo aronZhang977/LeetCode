@@ -17,9 +17,19 @@
  */
 class Solution {
 public:
-
+    // 迭代
     ListNode* reverseList(ListNode* head) {
+        ListNode *pCur = head;    
+        ListNode *pPre = nullptr;
+        while(pCur)
+        {
+            ListNode *pTemp = pCur->next;
+            pCur->next = pPre;
+            pPre = pCur;
+            pCur = pTemp;
+        }     
 
+        return pPre;
     }
 };
 // @lc code=end

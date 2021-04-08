@@ -8,9 +8,11 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+
+// 迭代
 class Solution {
 public:
-    // 迭代
     ListNode* reverseList(ListNode* head) {
         ListNode *pCur = head;    
         ListNode *pPre = nullptr;
@@ -25,3 +27,12 @@ public:
         return pPre;
     }
 };
+
+// 递归
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        
+    }
+};
+
