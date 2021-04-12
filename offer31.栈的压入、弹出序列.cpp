@@ -13,7 +13,7 @@ public:
                 ++i;
             }
         }
-
         return stk.empty();
     }
 };
+
