@@ -27,7 +27,7 @@ public:
         
         dfs(root->left,sum);
         dfs(root->right,sum);
-        m_path.pop_back();
+        m_path.pop_back();  // 回溯
     }
 
     vector<vector<int>> pathSum(TreeNode* root, int target) {
