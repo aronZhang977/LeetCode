@@ -1,4 +1,37 @@
-
+class Solution {
+public:
+    // 二分查找
+    int search(vector<int>& nums, int target) {
+        int len = nums.size();
+        if(len == 0) return 0;
+        int l_boundary, r_boundary;
+        int left = 0, right = len-1;
+        //查找右边界
+        while(left <= right){
+            int mid = (left + right) >> 1;
+            if(nums[mid] <= target){
+                left = mid + 1;
+            }else{
+                right = mid -1;
+            }
+        }
+        r_boundary = left;
+        if(right<0 || nums[right]!=target) return 0;
+        right = left;
+        left = 0;
+        //查找左边界
+        while(left <= right){
+            int mid = (left + right) >> 1;
+            if(nums[mid] >= target){
+                right = mid - 1;
+            }else{
+                left = mid + 1;
+            }
+        }
+        l_boundary = right;
+        return r_boundary - l_boundary -1;
+    }
+};
 
 class Solution {
 public:
