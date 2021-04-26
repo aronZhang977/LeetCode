@@ -3,11 +3,16 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <unordered_set>
+#include <iterator>
+#include <algorithm>
 
 using namespace std;
 
-bool creatMap(unordered_map& map,vector<string>& vStr1,vector<string>& vStr2)
+bool creatMap(unordered_map<string,string>& map,vector<string>& vStr1,vector<string>& vStr2)
 {
+	string str1,str2;
+	
 	while(cin >> str1)
 	{
 		if (str1[0] == EOF)
@@ -25,7 +30,7 @@ bool creatMap(unordered_map& map,vector<string>& vStr1,vector<string>& vStr2)
 			return false;
 		}
 	}
-	return true；
+	return true;
 }
 
 bool checkStr2(vector<string>& vStr2)
@@ -45,28 +50,28 @@ bool findHead(vector<string>& vStr1, vector<string>& vStr2, string& strHead)
 	int count = 0;
 	for(int i = 0; i < vStr1.size(); ++i)
 	{
-		auto it = find(vStr2.begin(), vStr2.end(), str1[i]);
-		if(it == str1.end())
+		auto it = find(vStr2.begin(), vStr2.end(), vStr1[i]);
+		if(it == vStr1.end())
 		{
 			//没找到
 			if(++count > 1)
 			{
 				return false;
 			}
-			strHead = str1[i];			
+			strHead = vStr1[i];			
 		}
 	}
 	return true;	
 }
 
-vector<string> res = creatVector(vStr1,vStr2);
+vector<string> creatVector(unordered_map<string,string>& map,string& strHead)
 {
 	string tail;
-	
+	vector<string> res;
 	auto it = map.find(strHead);
 	while(it != map.end())
 	{
-		res.push_back(it->frist);
+		res.push_back(it->first);
 		tail = it->second;
 		it = map.find(it->second);
 	}
@@ -94,7 +99,7 @@ int main()
 	}
 	
 	// 用map构建链表的vector
-	vector<string> res = creatVector(vStr1, vStr2, map);	
+	vector<string> res = creatVector(map, strHead);	
 	
 	//反转 
 	reverse(res.begin(), res.end());	
