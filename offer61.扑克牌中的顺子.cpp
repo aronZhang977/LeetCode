@@ -1,4 +1,4 @@
-//
+// 哈希
 class Solution {
 public:
     bool isStraight(vector<int>& nums) {
@@ -23,7 +23,7 @@ class Solution {
 public:
     bool isStraight(vector<int>& nums) {
         int minIndex = 0;
-        sort(nums.begin(),nums,end());
+        sort(nums.begin(),nums.end());
         for(int i = 0; i < nums.size() - 1; ++i)
         {
             if(0 == nums[i])
