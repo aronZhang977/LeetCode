@@ -12,10 +12,12 @@ using namespace std;
 bool creatMap(unordered_map<string,string>& map,vector<string>& vStr1,vector<string>& vStr2)
 {
 	string str1,str2;
+	int flag = 1;
 	
 	while(cin >> str1)
 	{
 		cin >> str2;
+
 		if(map.find(str1) == map.end())
 		{
 			map[str1] = str2;
@@ -24,11 +26,12 @@ bool creatMap(unordered_map<string,string>& map,vector<string>& vStr1,vector<str
 		}
 		else
 		{
-			return false;
+			flag = 0;
 		}
 	}
-	return true;
+	return flag ? true : false;
 }
+
 
 bool findHead(vector<string>& vStr1, vector<string>& vStr2, string& strHead)
 {
@@ -65,8 +68,22 @@ vector<string> creatVector(unordered_map<string,string>& map,string& strHead)
 		it = map.find(it->second);
 	}
 	res.push_back(tail);
-	
 	return res;
+}
+
+bool checkStr2(vector<string>& vStr2)
+{
+	unordered_set<string> set;
+	for(string str : vStr2)
+	{
+		if(set.find(str) != set.end())
+		{
+			return false;
+		}
+			
+		set.insert(str);
+	}
+	return true;
 }
 
 int main()
@@ -81,13 +98,18 @@ int main()
 		cout << "NO" << endl;
         return 1;
 	}
-    if(!findHead(vStr1, vStr2, strHead))
+    if(!checkStr2(vStr2))
     {
 		//有环/图/断链
 		cout << "NO" << endl;
         return 1;
     }
-	
+	if(!findHead(vStr1, vStr2, strHead))
+    {
+		//有环/图/断链
+		cout << "NO" << endl;
+        return 1;
+    }
 	// 用map构建链表的vector
 	vector<string> res = creatVector(map, strHead);	
 	
