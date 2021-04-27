@@ -15,9 +15,6 @@ bool creatMap(unordered_map<string,string>& map,vector<string>& vStr1,vector<str
 	
 	while(cin >> str1)
 	{
-		if (str1[0] == EOF)
-			break;
-		
 		cin >> str2;
 		if(map.find(str1) == map.end())
 		{
@@ -33,25 +30,13 @@ bool creatMap(unordered_map<string,string>& map,vector<string>& vStr1,vector<str
 	return true;
 }
 
-bool checkStr2(vector<string>& vStr2)
-{
-	unordered_set<string> set;
-	for(string str : vStr2)
-	{
-		if(set.find(str) != set.end())
-			return false;
-		set.insert(str);
-	}
-	return true;
-}
-
 bool findHead(vector<string>& vStr1, vector<string>& vStr2, string& strHead)
 {
 	int count = 0;
-	for(int i = 0; i < vStr1.size(); ++i)
+	for(int i = 0; i < (int)vStr1.size(); ++i)
 	{
 		auto it = find(vStr2.begin(), vStr2.end(), vStr1[i]);
-		if(it == vStr1.end())
+		if(it == vStr2.end())
 		{
 			//没找到
 			if(++count > 1)
@@ -61,6 +46,10 @@ bool findHead(vector<string>& vStr1, vector<string>& vStr2, string& strHead)
 			strHead = vStr1[i];			
 		}
 	}
+    if(!count)
+    {
+        return false;
+    }
 	return true;	
 }
 
@@ -90,13 +79,14 @@ int main()
 	{
 		// 树状
 		cout << "NO" << endl;
+        return 1;
 	}
-	
-	if(!checkStr2(vStr2) && !findHead(vStr1, vStr2, strHead))
-	{
+    if(!findHead(vStr1, vStr2, strHead))
+    {
 		//有环/图/断链
 		cout << "NO" << endl;
-	}
+        return 1;
+    }
 	
 	// 用map构建链表的vector
 	vector<string> res = creatVector(map, strHead);	
