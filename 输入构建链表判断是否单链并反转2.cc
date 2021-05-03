@@ -7,99 +7,87 @@
 #include <iterator>
 #include <algorithm>
 
-#include<iostream>
-#include<string>
-#include<vector>
-#include<stack>
-#include<map>
-#include<set>
-#include<algorithm>
 using namespace std;
 
 int main()
 {
     //找到只出现一次的出发点如果找不到任意选一个作为出发点
-    string a;
-    string b;
-    unordered_map<string, string> datas;
-    bool sign = true;
-    unordered_set<string> begin;
-    while (cin >> a)
+    string str1, str2;
+    unordered_map<string, string> map;
+    bool flag = true;
+    unordered_set<string> head;
+    while (cin >> str1)
     {
-        if (a[0] == EOF)
+        cin >> str2;
+        if (map.find(str1) == map.end())
         {
-            break;
-        }
-        cin >> b;
-        if (datas.find(a) == datas.end())
-        {
-            datas[a] = b;
+            map[str1] = str2;
         }
         else
         {
-            sign = false;
+            flag = false;
         }
-        //排除只出现一次的元素
-        if (begin.find(a) == begin.end())
-        { //a没有出现插入
-            begin.insert(a);
-        }
-        else
-        { //出现第二次删除
-            begin.erase(begin.find(a));
-        }
-        if (begin.find(b) == begin.end())
-        { //b没有出现插入
-            begin.insert(b);
+        // 找头
+        if (head.find(str1) == head.end())
+        { 
+            head.insert(str1);
         }
         else
-        { //出现第二次删除
-            begin.erase(begin.find(b));
+        { 
+            head.erase(head.find(str1));
+        }
+        if (head.find(str2) == head.end())
+        { 
+            head.insert(str2);
+        }
+        else
+        { 
+            head.erase(head.find(str2));
         }
     }
-    if (sign == false)
+    if (flag == false)
     {
         cout << "NO" << endl;
         return 0;
     }
-    string beg; //单链表开始结点的值
-    if (!begin.empty())
+    string strHead;
+    if (!head.empty())
     {
-        for (auto &s : begin)
+        for (auto str : head)
         {
-            if (datas.find(s) != datas.end())
+            if (map.find(str) != map.end())
             {
-                beg = s;
+                strHead = str;
             }
         }
     }
-    if (beg.empty())
+    if (strHead.empty())
     {
         cout << "NO" << endl;
         return 0;
     }
-    vector<string> result;
-    while (!datas.empty())
+    vector<string> res;
+    while (!map.empty())
     {
-        result.push_back(beg);
-        if (datas.find(beg) == datas.end())
+        res.push_back(strHead);
+        if (map.find(strHead) == map.end())
         {
             break;
         }
         else
         {
-            string tem = datas[beg];
-            datas.erase(beg);
-            beg = tem;
+            string tem = map[strHead];
+            map.erase(strHead);
+            strHead = tem;
         }
     }
-    result.push_back(beg);
-    reverse(result.begin(), result.end());
-    if (datas.empty())
+    res.push_back(strHead);
+    reverse(res.begin(), res.end());
+    if (map.empty())
     {
-        for (size_t i = 0; i < result.size(); i++)
+        for (int i = 0; i < (int)res.size(); ++i)
         {
-            cout << result[i] << endl;
+            cout << res[i] << endl;
         }
     }
     else
