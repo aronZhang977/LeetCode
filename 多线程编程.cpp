@@ -139,7 +139,7 @@ public:
     }
 };
 
-void ti(rwlock* rwl)
+void t1(rwlock* rwl)
 {
     while (1)
     {
