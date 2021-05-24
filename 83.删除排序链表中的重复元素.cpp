@@ -18,7 +18,24 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
+        if(head == nullptr || head->next == nullptr)
+            return head;
+        ListNode *pCur = head;
+        ListNode *pPre = head->next;
 
+        while(pPre)
+        {
+            if(pCur->val == pPre->val)
+            {
+                pCur->next = pPre->next;
+                pPre = pCur->next;
+            }else
+            {
+                pCur = pCur->next;
+                pPre = pPre->next;
+            }
+        }
+        return head;
     }
 };
 // @lc code=end
