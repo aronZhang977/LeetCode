@@ -6,6 +6,26 @@
 
 // @lc code=start
 
+// 使用迭代器和erase()
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        
+        for(auto it = nums.begin(); it != nums.end();)
+        {
+            if(*it == val)
+            {
+                it = nums.erase(it);
+            }
+            else
+            {
+                ++it;
+            }
+        }
+        return nums.size();
+    }
+};
+
 //双指针
 class Solution {
 public:
