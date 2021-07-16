@@ -16,10 +16,23 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+ // 遍历
 class Solution {
 public:
-    vector<int> postorderTraversal(TreeNode* root) {
+    void func(TreeNode* root, vector<int>& res)
+    {
+        if(!root)
+            return;
+        
+        func(root->left, res);
+        func(root->right, res);
+        res.push_back(root->val);
+    }
 
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        func(root,res);
+        return res;
     }
 };
 // @lc code=end
